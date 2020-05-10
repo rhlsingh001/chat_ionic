@@ -16,6 +16,7 @@ import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
+import { WebSocketService } from './web-socket.service';
 
 @Component({
   selector: 'app-root',
@@ -231,9 +232,16 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private route:Router,
-    public alertCtrl:AlertController
+    public alertCtrl:AlertController,
+    private webSocketService: WebSocketService
   ) {
     this.initializeApp();
+  }
+
+  ngOnInit(){
+    // this.webSocketService.listen('test service').subscribe((data)=>{
+    //   console.log(data);
+    // });
   }
 
   initializeApp() {

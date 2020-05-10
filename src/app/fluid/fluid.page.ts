@@ -11,6 +11,9 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Device } from '@ionic-native/device/ngx';
 import { AlertController, Platform } from '@ionic/angular';
+import { WebSocketService } from '../web-socket.service';
+import { Observable } from 'rxjs';
+import * as io from 'socket.io-client';
 
 @Component({
   selector: 'app-fluid',
@@ -32,12 +35,18 @@ export class FluidPage implements OnInit {
   ]
   phone_model = 'iPhone';
   input = '';
+  readonly url: string = 'ws://localhost:3002';
+  socket: any;
 
   constructor(private platform: Platform,
-    public alertController: AlertController, private device: Device, private menuCtrl: MenuController) { }
+    private webSocketService: WebSocketService,
+    
+    public alertController: AlertController, private device: Device, private menuCtrl: MenuController) { 
 
-  ngOnInit() {
-  }
+      this.socket = io(this.url);
+    }
+
+
 
   ionViewDidEnter() {
     this.menuCtrl.enable(false, 'end');
@@ -78,14 +87,46 @@ export class FluidPage implements OnInit {
     }
   }
 
+  // listen(eventName: string){ 
+  //   return new Observable((subscriber)=>{
+  //     this.socket.on(eventName,(data)=>{
+  //       subscriber.next(data);
+  //     })
+  //   })
+  // }
+
+  // exit(eventName:string,data:any){
+  //   this.socket.emit(eventName,data);
+  // }
+    
+
   send() {
     if (this.input != '') {
-      this.conversation.push({ text: this.input, sender: 1, image: 'assets/images/sg1.jpg' });
-      this.input = '';
-      setTimeout(() => {
-        this.scrollToBottom()
-      }, 10)
+      // this.webSocketService.listen(this.input).subscribe((data)=>{
+      //   alert('sdf');
+      //   console.log(data);
+      // });
+      this.webSocketService.sendMessage(this.input);
+ 
+
+      // this.conversation.push({ text: this.input, sender: 1, image: 'assets/images/sg1.jpg' });
+      // this.input = '';
+      // setTimeout(() => {
+      //   this.scrollToBottom()
+      // }, 10)
     }
+  }
+
+  ngOnInit() {
+    this.webSocketService
+    .getMessages()
+    .subscribe((message: string) => {
+      this.conversation.push({ text: message, sender: 1, image: 'assets/images/sg1.jpg' });
+      this.input = '';
+       setTimeout(() => {
+        this.scrollToBottom()
+       }, 10)
+    });
   }
 
   scrollToBottom(){

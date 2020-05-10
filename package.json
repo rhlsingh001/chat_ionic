@@ -30,6 +30,7 @@
     "core-js": "^2.5.4",
     "node-sass": "^4.14.1",
     "rxjs": "~6.3.3",
+    "socket.io-client": "^2.3.0",
     "zone.js": "~0.8.29"
   },
   "devDependencies": {
@@ -64,5 +65,15 @@
     "plugins": {
       "cordova-plugin-device": {}
     }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhlsingh001/chat_ionic.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rhlsingh001/chat_ionic/issues"
   }
 }
