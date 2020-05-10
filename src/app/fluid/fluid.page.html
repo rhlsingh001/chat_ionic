@@ -7,23 +7,34 @@
  * LICENSE.md file in the root directory of this source .
  */ -->
 
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
+      <button class="button icon ion-navicon">
+        Icon Here
+      </button>
+
+    
+
       <div class="title-block">
         <ion-icon name="chatboxes" color="d3blue" class="title-icon"></ion-icon>
-        <ion-text color="d3blue" class="title-text">Fluid</ion-text>
+        <ion-text color="d3blue" class="title-text">Talk To Strangers!</ion-text>
       </div>
     </ion-title>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
 <ion-content padding-vertical fullscreen>
+ 
   <div id="chat-parent" class="bg-image" [ngClass]="{ 'bg-image-X': phone_model=='iPhone X'}">
+    <ion-toolbar>
+      <ion-title>You're now chatting with a random stranger.</ion-title>
+    </ion-toolbar>
     <div id="chat-container">
+     
       <ion-row *ngFor="let conv of conversation; let i = index;" class="full no-padding">
         <ion-col class="no-padding chat-row" [ngClass]="{ 'reverse': conv.sender}">
           <div [ngClass]="{ 'name-row-parent-right': conv.sender,'name-row-parent-left': !conv.sender}">
