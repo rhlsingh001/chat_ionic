@@ -102,25 +102,22 @@ export class FluidPage implements OnInit {
 
   send() {
     if (this.input != '') {
-      // this.webSocketService.listen(this.input).subscribe((data)=>{
-      //   alert('sdf');
-      //   console.log(data);
-      // });
-      this.webSocketService.sendMessage(this.input);
- 
-
-      // this.conversation.push({ text: this.input, sender: 1, image: 'assets/images/sg1.jpg' });
-      // this.input = '';
-      // setTimeout(() => {
-      //   this.scrollToBottom()
-      // }, 10)
+     this.webSocketService.sendMessage(this.input);
+     
+     this.conversation.push({ text: this.input, sender: 1, image: 'assets/images/sg1.jpg' });
+     this.input = '';
+      setTimeout(() => {
+       this.scrollToBottom()
+      }, 10)
     }
   }
 
   ngOnInit() {
+  
     this.webSocketService
     .getMessages()
     .subscribe((message: string) => {
+      debugger;
       this.conversation.push({ text: message, sender: 1, image: 'assets/images/sg1.jpg' });
       this.input = '';
        setTimeout(() => {

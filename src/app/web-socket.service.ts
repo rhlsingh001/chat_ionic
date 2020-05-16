@@ -16,17 +16,23 @@ export class WebSocketService {
    }
 
   public sendMessage(message) { 
-    this.Socket.emit('new-message', message);
+    this.Socket.emit('new-message', message);    
   }
 
-  public getMessages = () => {
+  public getMessages = () => { 
     return Observable.create((observer) => {
         this.Socket.on('new-message', (message) => {
             observer.next(message);
         });
     });
-}
+  }
 
+
+  newDocument() {
+    this.Socket.emit('getDoc', 12);
+  }
+
+ 
   // listen(eventName: string){
   //   return new Observable((subscriber)=>{
   //     this.socket.on(eventName,(data)=>{

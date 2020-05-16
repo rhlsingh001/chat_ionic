@@ -10,13 +10,12 @@ let io = socketIO(server);
 const port = process.env.PORT || 3002;
 
 io.on('connection', (socket) => {
-    console.log('user connected');
     socket.on('new-message', (message) => {
         console.log(message);
-        io.emit(message);
+         io.emit('new-message',message); 
     });
 });
-
+ 
 server.listen(port, () => {
     console.log(`started on port: ${port}`);
 });
